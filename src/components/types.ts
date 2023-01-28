@@ -1,5 +1,5 @@
 export default interface ComponentStructure {
-  domElement: HTMLElement;
+  element: Element;
   render: () => void;
   addListeners?: () => void;
 }
@@ -10,8 +10,8 @@ export interface InfoPokemons {
 }
 
 export interface InfoPokedex {
-  numberPokemons: number;
+  countPokemons: number;
+  next: string | undefined;
+  previus: string | undefined;
   results: InfoPokemons[];
-  next(): void;
-  previus(): void;
 }
