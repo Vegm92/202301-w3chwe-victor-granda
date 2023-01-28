@@ -1,7 +1,17 @@
-interface ComponentStructure {
+export default interface ComponentStructure {
   domElement: HTMLElement;
   render: () => void;
   addListeners?: () => void;
 }
 
-export default ComponentStructure;
+export interface InfoPokemons {
+  name: string;
+  url: string;
+}
+
+export interface InfoPokedex {
+  numberPokemons: number;
+  results: InfoPokemons[];
+  next(): void;
+  previus(): void;
+}
