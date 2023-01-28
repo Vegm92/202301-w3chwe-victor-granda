@@ -1,13 +1,16 @@
 import HeaderComponent from "./components/HeaderComponent/HeaderComponent.js";
 import PageComponent from "./components/PageComponent/PageComponent.js";
-import fetchPokemonClassics from "./utils/fetchPokemon.js";
+import {
+  fetchPokemonClassics,
+  fetchPokemonData,
+} from "./utils/fetchPokemon.js";
 
 const mainContainer = new PageComponent(document.querySelector(".root"));
 mainContainer.render();
 
-const headerContainer = new HeaderComponent(mainContainer.element);
+const headerContainer = new HeaderComponent(mainContainer.domElement);
 headerContainer.render();
 
 (async () => {
-  await fetchPokemonClassics(50);
+  const listPokemons = await fetchPokemonClassics();
 })();

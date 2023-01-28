@@ -1,5 +1,5 @@
 export default interface ComponentStructure {
-  element: Element;
+  domElement: HTMLElement;
   render: () => void;
   addListeners?: () => void;
 }
