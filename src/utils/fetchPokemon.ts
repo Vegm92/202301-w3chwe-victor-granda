@@ -1,10 +1,21 @@
-import type { InfoPokedex } from "../components/types.js";
-const urlPokeApi = "https://pokeapi.co/api/v2/pokemon/";
+import type { InfoPokedex, InfoPokemons } from "../components/types.js";
+const completeClassicPokeList = "https://pokeapi.co/api/v2/pokemon?limit=151";
+const onePokeApi = "https://pokeapi.co/api/v2/pokemon/";
 
-const fetchPokemonClassics = async (pokemonID: number) => {
-  const response = await fetch(`${urlPokeApi}${pokemonID}`);
-  const pokemon = (await response.json()) as InfoPokedex;
-  return pokemon;
+export const fetchPokemonClassics = async () => {
+  const response = await fetch(completeClassicPokeList);
+  const pokemons = (await response.json()) as InfoPokedex;
+  pokemons.results.forEach(async (pokemon) => {
+    await fetchPokemonData(pokemon);
+  });
+  return pokemons;
 };
 
-export default fetchPokemonClassics;
+export const fetchPokemonData = async (pokemon: InfoPokemons) => {
+  const urlPoke = pokemon.url;
+  await fetch(urlPoke)
+    .then(async (response) => response.json())
+    .then((pokeData) => pokeData as InfoPokemons);
+};
+
+export const pokemonsList = fetchPokemonClassics();
