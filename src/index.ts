@@ -1,9 +1,11 @@
 import HeaderComponent from "./components/HeaderComponent/HeaderComponent.js";
 import PageComponent from "./components/PageComponent/PageComponent.js";
-import { InfoPokemons, Pokemon } from "./components/types.js";
 import fetchDataPokemon, {
-  fetchPokemonsClassics,
+  allPokemonClassicsList,
+  getRandomPokemon,
+  pokemonDetails,
 } from "./utils/fetchPokemon.js";
+const maxPokemons = 150;
 
 const mainContainer = new PageComponent(document.querySelector(".root"));
 mainContainer.render();
@@ -12,9 +14,9 @@ const headerContainer = new HeaderComponent(mainContainer.domElement);
 headerContainer.render();
 
 (async () => {
-  const listClassicPokemons = await fetchPokemonsClassics(12)!;
-
-  const singlePokemon = await fetchDataPokemon(20)!;
+  const randomPoke = getRandomPokemon(maxPokemons);
+  const listClassicPokemons = await allPokemonClassicsList(20)!;
+  const singlePokemon = await pokemonDetails(randomPoke)!;
 })();
 
-const pokemon1 = new Pokemon(20, "papa", "adad");
+const getPokemonById = await pokemonDetails(55);
