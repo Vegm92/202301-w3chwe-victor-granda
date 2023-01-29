@@ -1,14 +1,21 @@
-import type { InfoPokemons } from "../components/types.js";
+import type { InfoPokemons, PokeDetails } from "../components/types.js";
+import pokemonDetails from "./fetchPokemon.js";
 
-const renderPokemons = (pokeData: InfoPokemons) => {
-  const allPokemonContainer: Element = document.querySelector(".root")!;
+export const renderPokemons = (pokeData: PokeDetails) => {
+  const allPokemonContainer = document.querySelector(".root")!;
   const pokemonContainer: HTMLElement = document.createElement("div");
-  const pokemonName = document.createElement("h4");
-  pokemonName.innerHTML = pokeData.name;
 
+  const pokeName = document.createElement("h4");
   const pokeNumber = document.createElement("p");
-  pokeNumber.innerText = pokeData.id;
+  const pokeImage = document.createElement("img");
 
-  pokemonContainer.append(pokemonName, pokeNumber);
+  pokeName.innerHTML = `Name: ${pokeData.name}`;
+  pokeNumber.innerText = `Nº ${pokeData.id}`;
+  pokeImage.setAttribute(
+    "src",
+    `${pokeData.sprites.other["official-artwork"].front_default}`
+  );
+
+  pokemonContainer.append(pokeImage, pokeName, pokeNumber);
   allPokemonContainer.appendChild(pokemonContainer);
 };
