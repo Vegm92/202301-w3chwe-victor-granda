@@ -14,7 +14,6 @@ export const allPokemonClassicsList = async (pokeLimit: number) => {
     const urlPoke = pokemon.url;
     const pokemonDetails = await fetch(urlPoke);
     const pokemons = (await pokemonDetails.json()) as InfoPokemons;
-
     return pokemons;
   });
   return pokeData;

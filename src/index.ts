@@ -1,22 +1,29 @@
+import PokemonCardComponent from "./components/CardComponent/PokemonCardComponent.js";
 import HeaderComponent from "./components/HeaderComponent/HeaderComponent.js";
 import PageComponent from "./components/PageComponent/PageComponent.js";
-import fetchDataPokemon, {
-  allPokemonClassicsList,
-  getRandomPokemon,
-  pokemonDetails,
-} from "./utils/fetchPokemon.js";
-const maxPokemons = 150;
+import { pokemonDetails } from "./utils/fetchPokemon.js";
+import { mainRender } from "./utils/renderPokemon.js";
 
-const mainContainer = new PageComponent(document.querySelector(".root"));
-mainContainer.render();
-
-const headerContainer = new HeaderComponent(mainContainer.domElement);
+const root: HTMLElement = document.querySelector(".root");
+const mainContainer = new PageComponent(root);
+const headerContainer = new HeaderComponent(mainContainer.parentElement);
 headerContainer.render();
 
+const looperAwait = [1];
+const pokemonsToShow = 50;
+for (let i = 2; i < pokemonsToShow; i++) {
+  looperAwait.push(i);
+}
+
 (async () => {
-  const randomPoke = getRandomPokemon(maxPokemons);
-  const listClassicPokemons = await allPokemonClassicsList(20)!;
-  const singlePokemon = await pokemonDetails(randomPoke)!;
+  for await (const index of looperAwait) {
+    const listPokemons = await pokemonDetails(index);
+    const newPokemon = new PokemonCardComponent(
+      mainContainer.element,
+      listPokemons
+    );
+    newPokemon.render();
+  }
 })();
 
-const getPokemonById = await pokemonDetails(55);
+mainRender();

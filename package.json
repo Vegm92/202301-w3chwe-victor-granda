@@ -32,6 +32,7 @@
   },
   "description": "",
   "dependencies": {
-    "lint-staged": "^13.1.0"
+    "lint-staged": "^13.1.0",
+    "sass": "^1.57.1"
   }
 }
