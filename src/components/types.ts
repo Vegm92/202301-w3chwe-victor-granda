@@ -13,17 +13,17 @@ export interface InfoPokedex {
 export interface PokeDetails {
   id: number;
   name: string;
-  sprites: string;
-}
-
-export class Pokemon implements PokeDetails {
-  id;
-  name;
-  sprites;
-
-  constructor(id: number, name: string, sprites: string) {
-    this.id = id;
-    this.name = name;
-    this.sprites = sprites;
-  }
+  forms: [
+    {
+      name: string;
+      url: string;
+    }
+  ];
+  sprites: {
+    other: {
+      "official-artwork": {
+        front_default: string;
+      };
+    };
+  };
 }
