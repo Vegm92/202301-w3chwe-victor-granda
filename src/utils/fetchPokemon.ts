@@ -1,21 +1,25 @@
 import type { InfoPokedex, InfoPokemons } from "../components/types.js";
-const completeClassicPokeList = "https://pokeapi.co/api/v2/pokemon?limit=151";
-const onePokeApi = "https://pokeapi.co/api/v2/pokemon/";
+const originalPokemons = "https://pokeapi.co/api/v2/pokemon?limit=";
+const pokeApiGeneral = "https://pokeapi.co/api/v2/pokemon/";
 
-export const fetchPokemonClassics = async () => {
-  const response = await fetch(completeClassicPokeList);
-  const pokemons = (await response.json()) as InfoPokedex;
-  pokemons.results.forEach(async (pokemon) => {
-    await fetchPokemonData(pokemon);
+export const fetchPokemonsClassics = async (pokeLimit: number) => {
+  const response = await fetch(`${originalPokemons}${pokeLimit}`);
+  const pokeData = (await response.json()) as InfoPokedex;
+  pokeData.results.forEach(async (pokemon) => {
+    const urlPoke = pokemon.url;
+    const pokemonDetails = await fetch(urlPoke);
+    const pokemons = (await pokemonDetails.json()) as InfoPokemons;
+    return pokemons;
   });
-  return pokemons;
+  return pokeData;
 };
 
-export const fetchPokemonData = async (pokemon: InfoPokemons) => {
-  const urlPoke = pokemon.url;
-  await fetch(urlPoke)
-    .then(async (response) => response.json())
-    .then((pokeData) => pokeData as InfoPokemons);
+export const fetchDetailsPokemon = async (idPoke: number) => {
+  try {
+    const response = await fetch(`${pokeApiGeneral}${idPoke}`);
+    const data = (await response.json()) as InfoPokedex;
+    return data;
+  } catch (error: unknown) {}
 };
 
-export const pokemonsList = fetchPokemonClassics();
+export default fetchDetailsPokemon;
