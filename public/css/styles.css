@@ -36,6 +36,7 @@ body {
 
 .card {
   background-color: white;
+  border: 10px solid goldenrod;
   border-radius: 16px;
   box-shadow: 20px 20px 4px rgba(0, 0, 0, 0.7);
 }

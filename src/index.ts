@@ -10,7 +10,7 @@ const headerContainer = new HeaderComponent(mainContainer.parentElement);
 headerContainer.render();
 
 const looperAwait = [1];
-const pokemonsToShow = 50;
+const pokemonsToShow = 152;
 for (let i = 2; i < pokemonsToShow; i++) {
   looperAwait.push(i);
 }
